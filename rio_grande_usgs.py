@@ -1517,6 +1517,10 @@ def build_15min_dashboard(station_data_map):
       <span style="color:#888;"> &mdash; enter cfs values, e.g. 0 and 2000</span>
     </div>
     <script>
+      // Find the Plotly div dynamically -- Plotly may alter the div_id slightly
+      function getPlotDiv() {
+        return document.querySelector('.plotly-graph-div');
+      }
       function applyYRange() {
         var minVal = parseFloat(document.getElementById('yaxis-min').value);
         var maxVal = parseFloat(document.getElementById('yaxis-max').value);
@@ -1527,19 +1531,24 @@ def build_15min_dashboard(station_data_map):
         // Always put smaller value first to prevent axis inversion
         var lo = Math.min(minVal, maxVal);
         var hi = Math.max(minVal, maxVal);
-        Plotly.relayout('rg15min', {
-          'yaxis.range':     [lo, hi],
-          'yaxis.autorange': false,
-          'yaxis2.autorange': false
-        });
+        var div = getPlotDiv();
+        if (div) {
+          Plotly.relayout(div, {
+            'yaxis.range':     [lo, hi],
+            'yaxis.autorange': false
+          });
+        }
       }
       function resetYRange() {
         document.getElementById('yaxis-min').value = '';
         document.getElementById('yaxis-max').value = '';
-        Plotly.relayout('rg15min', {
-          'yaxis.autorange': true,
-          'yaxis.range':     null
-        });
+        var div = getPlotDiv();
+        if (div) {
+          Plotly.relayout(div, {
+            'yaxis.autorange': true,
+            'yaxis.range':     null
+          });
+        }
       }
     </script>
     """
