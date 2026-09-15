@@ -1,16 +1,9 @@
 name: Daily Rio Grande Data Update
 
-# Runs every day at 6:00 AM US Mountain Time, plus allows manual runs.
-#
-# NOTE on the cron schedule: GitHub Actions cron times are always in UTC,
-# and GitHub does not adjust for daylight saving time. This is set for
-# 6:00 AM MDT (UTC-6), so during MST (UTC-7, roughly Nov-Mar) it will run
-# at 5:00 AM local time instead. Adjust the cron line below if you'd
-# rather it run at 6:00 AM MST and 7:00 AM MDT (use '0 13 * * *').
 "on":
   schedule:
     - cron: '0 12 * * *'
-  workflow_dispatch: {}   # adds a "Run workflow" button on the Actions tab
+  workflow_dispatch: {}
 
 permissions:
   contents: write
@@ -27,8 +20,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # full history needed for reliable push
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -41,16 +32,22 @@ jobs:
       - name: Run data fetcher
         run: python rio_grande_usgs.py
 
-      - name: Commit timestamp to keep workflow active
+      - name: Keep workflow active via GitHub API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          git reset --hard origin/main
-          echo "Last run: $(date -u '+%Y-%m-%d %H:%M UTC')" > last_run.txt
-          git add last_run.txt
-          git commit -m "chore: update last_run timestamp [skip ci]" || echo "Nothing to commit"
-          git push origin main
+          CONTENT=$(echo "Last run: $(date -u '+%Y-%m-%d %H:%M UTC')" | base64 -w 0)
+          SHA=$(gh api /repos/KingEngrNM/rio-grande-data/contents/last_run.txt --jq .sha 2>/dev/null || echo "")
+          if [ -z "$SHA" ]; then
+            gh api --method PUT /repos/KingEngrNM/rio-grande-data/contents/last_run.txt \
+              --field message="chore: update last_run timestamp [skip ci]" \
+              --field content="$CONTENT" || echo "API update failed, continuing"
+          else
+            gh api --method PUT /repos/KingEngrNM/rio-grande-data/contents/last_run.txt \
+              --field message="chore: update last_run timestamp [skip ci]" \
+              --field content="$CONTENT" \
+              --field sha="$SHA" || echo "API update failed, continuing"
+          fi
 
       - name: Assemble site folder
         run: |
