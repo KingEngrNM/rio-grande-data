@@ -13,7 +13,7 @@ name: Daily Rio Grande Data Update
   workflow_dispatch: {}   # adds a "Run workflow" button on the Actions tab
 
 permissions:
-  contents: read
+  contents: write    # write needed to commit the timestamp file
   pages: write
   id-token: write
 
@@ -39,6 +39,15 @@ jobs:
 
       - name: Run data fetcher
         run: python rio_grande_usgs.py
+
+      - name: Commit timestamp to keep workflow active
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "Last run: $(date -u '+%Y-%m-%d %H:%M UTC')" > last_run.txt
+          git add last_run.txt
+          git commit -m "chore: update last_run timestamp [skip ci]" || echo "Nothing to commit"
+          git push
 
       - name: Assemble site folder
         run: |
