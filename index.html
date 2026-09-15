@@ -8,47 +8,41 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     color: #333;
-    max-width: 800px;
+    max-width: 960px;
     margin: 40px auto;
     padding: 0 20px;
     line-height: 1.5;
   }
-  h1 {
-    font-size: 24px;
-    border-bottom: 2px solid #2ca02c;
-    padding-bottom: 8px;
-  }
-  h2 {
-    font-size: 18px;
-    margin-top: 32px;
-  }
+  h1 { font-size: 24px; border-bottom: 2px solid #2c5f2e; padding-bottom: 8px; }
+  h2 { font-size: 17px; margin-top: 28px; color: #2c5f2e; }
   .card {
     background: #f7f7f7;
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 14px 18px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
-  .card a {
-    font-size: 16px;
-    font-weight: bold;
-    color: #1f77b4;
-    text-decoration: none;
+  .card a { font-size: 15px; font-weight: bold; color: #1f77b4; text-decoration: none; }
+  .card a:hover { text-decoration: underline; }
+  .card p { margin: 5px 0 0; color: #666; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+  th {
+    background: #2c5f2e; color: #fff;
+    padding: 7px 10px; text-align: left; white-space: nowrap;
   }
-  .card a:hover {
-    text-decoration: underline;
-  }
-  .card p {
-    margin: 6px 0 0;
-    color: #666;
-    font-size: 14px;
+  td { padding: 5px 10px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+  tr:hover td { background: #eef4ee; }
+  td a { color: #1f77b4; text-decoration: none; }
+  td a:hover { text-decoration: underline; }
+  .section-row td {
+    background: #e8f0e8 !important;
+    font-weight: bold; font-size: 11px;
+    color: #2c5f2e; padding: 4px 10px;
   }
   footer {
-    margin-top: 40px;
-    font-size: 12px;
-    color: #888;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
+    margin-top: 40px; font-size: 11px; color: #888;
+    border-top: 1px solid #ddd; padding-top: 10px;
   }
 </style>
 </head>
@@ -71,8 +65,8 @@
 
 <div class="card">
   <a href="RioGrande_Dashboard_15min.html">15-Minute Discharge &mdash; Past 30 Days</a>
-  <p>High-resolution instantaneous discharge for the past 30 days, with
-     adjustable y-axis range.</p>
+  <p>High-resolution instantaneous discharge for the past 30 days,
+     with adjustable y-axis range.</p>
 </div>
 
 <h2>Spreadsheets</h2>
@@ -88,10 +82,100 @@
   <p>15-minute instantaneous discharge by station for the past 30 days.</p>
 </div>
 
+<h2>Station Reference &amp; Agency Links</h2>
+
+<table>
+  <tr>
+    <th>Station</th>
+    <th>Full Name</th>
+    <th>Agency</th>
+    <th>Site ID</th>
+    <th>Link</th>
+  </tr>
+  <tr><td>Lobatos</td>
+      <td>Rio Grande near Lobatos, CO</td>
+      <td>Colorado DWR</td><td>RIOLOBCO</td>
+      <td><a href="https://dwr.state.co.us/Tools/Stations/RIOLOBCO" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Cerro</td>
+      <td>Rio Grande near Cerro, NM</td>
+      <td>USGS</td><td>08263500</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08263500/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Embudo</td>
+      <td>Rio Grande at Embudo, NM</td>
+      <td>USGS</td><td>08279500</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08279500/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Chamita</td>
+      <td>Rio Chama near Chamita, NM</td>
+      <td>USGS</td><td>08290000</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08290000/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Otowi</td>
+      <td>Rio Grande at Otowi Bridge, NM</td>
+      <td>USGS</td><td>08313000</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08313000/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Blw Cochiti</td>
+      <td>Rio Grande below Cochiti Dam, NM</td>
+      <td>USGS</td><td>08317400</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08317400/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Alameda</td>
+      <td>Rio Grande at Alameda Bridge, NM</td>
+      <td>USGS</td><td>08329918</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08329918/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Paseo del Norte</td>
+      <td>Rio Grande near Paseo del Norte, NM</td>
+      <td>USGS</td><td>08329928</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08329928/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Albuquerque</td>
+      <td>Rio Grande at Albuquerque, NM</td>
+      <td>USGS</td><td>08330000</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08330000/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Bosque Farms</td>
+      <td>Rio Grande near Bosque Farms, NM</td>
+      <td>USGS</td><td>08331160</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08331160/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Hwy 346</td>
+      <td>Rio Grande at State Hwy 346 near Bosque, NM</td>
+      <td>USGS</td><td>08331510</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08331510/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>San Acacia</td>
+      <td>Rio Grande Floodway at San Acacia, NM</td>
+      <td>USGS</td><td>08354900</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08354900/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Escondida</td>
+      <td>Rio Grande at Bridge near Escondida, NM</td>
+      <td>USGS</td><td>08355050</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08355050/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Hwy 380</td>
+      <td>Rio Grande above US Hwy 380 near San Antonio, NM</td>
+      <td>USGS</td><td>08355490</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08355490/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>San Marcial CC</td>
+      <td>Rio Grande Conveyance Channel at San Marcial, NM</td>
+      <td>USGS</td><td>08358300</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08358300/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>San Marcial FW</td>
+      <td>Rio Grande Floodway at San Marcial, NM</td>
+      <td>USGS</td><td>08358400</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08358400/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>Narrows</td>
+      <td>Rio Grande at Narrows in Elephant Butte Res., NM</td>
+      <td>USGS</td><td>08359500</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08359500/" target="_blank">Visit &#8599;</a></td></tr>
+  <tr class="section-row"><td colspan="5">Elephant Butte Reservoir</td></tr>
+  <tr><td>EB Storage &amp; WSE</td>
+      <td>Elephant Butte Reservoir storage and water surface elevation</td>
+      <td>USBR RISE</td><td>Location 323</td>
+      <td><a href="https://data.usbr.gov/catalog/2293" target="_blank">Visit &#8599;</a></td></tr>
+  <tr><td>EB Release</td>
+      <td>Rio Grande below Elephant Butte Dam</td>
+      <td>USGS</td><td>08361000</td>
+      <td><a href="https://waterdata.usgs.gov/monitoring-location/08361000/" target="_blank">Visit &#8599;</a></td></tr>
+</table>
+
 <footer>
   Data sources: USGS National Water Information System, Colorado Division
-  of Water Resources (HydroBase), and U.S. Bureau of Reclamation (RISE).
-  Provisional data subject to revision.
+  of Water Resources (HydroBase), and U.S. Bureau of Reclamation (RISE API).
+  Provisional data subject to revision. &nbsp;|&nbsp;
+  Site by <a href="https://kingengr.com" style="color:#888;">King Engineering</a>.
 </footer>
 
 </body>
