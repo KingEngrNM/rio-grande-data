@@ -1,9 +1,16 @@
 name: Daily Rio Grande Data Update
 
+# Runs every day at 6:00 AM US Mountain Time, plus allows manual runs.
+#
+# NOTE on the cron schedule: GitHub Actions cron times are always in UTC,
+# and GitHub does not adjust for daylight saving time. This is set for
+# 6:00 AM MDT (UTC-6), so during MST (UTC-7, roughly Nov-Mar) it will run
+# at 5:00 AM local time instead. Adjust the cron line below if you'd
+# rather it run at 6:00 AM MST and 7:00 AM MDT (use '0 13 * * *').
 "on":
   schedule:
     - cron: '0 12 * * *'
-  workflow_dispatch: {}
+  workflow_dispatch: {}   # adds a "Run workflow" button on the Actions tab
 
 permissions:
   contents: write
@@ -21,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0   # full history needed for reliable push
 
       - name: Set up Python
         uses: actions/setup-python@v5
