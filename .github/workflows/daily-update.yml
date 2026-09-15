@@ -47,6 +47,7 @@ jobs:
           echo "Last run: $(date -u '+%Y-%m-%d %H:%M UTC')" > last_run.txt
           git add last_run.txt
           git commit -m "chore: update last_run timestamp [skip ci]" || echo "Nothing to commit"
+          git pull --rebase
           git push
 
       - name: Assemble site folder
