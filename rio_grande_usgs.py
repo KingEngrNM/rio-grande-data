@@ -1518,21 +1518,28 @@ def build_15min_dashboard(station_data_map):
     </div>
     <script>
       function applyYRange() {
-        var minVal = document.getElementById('yaxis-min').value;
-        var maxVal = document.getElementById('yaxis-max').value;
-        if (minVal === '' || maxVal === '') {
+        var minVal = parseFloat(document.getElementById('yaxis-min').value);
+        var maxVal = parseFloat(document.getElementById('yaxis-max').value);
+        if (isNaN(minVal) || isNaN(maxVal)) {
           alert('Enter both a minimum and maximum value.');
           return;
         }
+        // Always put smaller value first to prevent axis inversion
+        var lo = Math.min(minVal, maxVal);
+        var hi = Math.max(minVal, maxVal);
         Plotly.relayout('rg15min', {
-          'yaxis.range':     [parseFloat(minVal), parseFloat(maxVal)],
-          'yaxis.autorange': false
+          'yaxis.range':     [lo, hi],
+          'yaxis.autorange': false,
+          'yaxis2.autorange': false
         });
       }
       function resetYRange() {
         document.getElementById('yaxis-min').value = '';
         document.getElementById('yaxis-max').value = '';
-        Plotly.relayout('rg15min', {'yaxis.autorange': true});
+        Plotly.relayout('rg15min', {
+          'yaxis.autorange': true,
+          'yaxis.range':     null
+        });
       }
     </script>
     """
