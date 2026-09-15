@@ -1378,10 +1378,9 @@ def build_dashboard(station_data_map):
 
     # Write self-contained HTML — no internet connection needed to view
     html_file = "RioGrande_Dashboard.html"
-    safe_save(lambda: fig.write_html(
-        html_file,
-        include_plotlyjs=True,    # embeds plotly.js (~3MB) so file is standalone
-        full_html=True,
+    daily_plot_html = fig.to_html(
+        full_html=False,
+        include_plotlyjs=True,
         config={
             "displayModeBar": True,
             "modeBarButtonsToRemove": ["lasso2d", "select2d"],
@@ -1393,7 +1392,19 @@ def build_dashboard(station_data_map):
                 "scale": 2,
             },
         },
-    ), html_file)
+    )
+    daily_html_doc = f"""<html>
+<head><meta charset="utf-8" /><title>Rio Grande Daily Discharge</title></head>
+<body>
+{daily_plot_html}
+</body>
+</html>"""
+
+    def _write_daily_html():
+        with open(html_file, "w", encoding="utf-8") as f:
+            f.write(daily_html_doc)
+
+    safe_save(_write_daily_html, html_file)
 
 
 def build_15min_dashboard(station_data_map):
